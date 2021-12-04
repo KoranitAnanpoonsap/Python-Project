@@ -32,17 +32,18 @@ i = 0
 gameover = False
 
 # the grid
-for i in range(7):
-    pygame.draw.rect(
-        screen,
-        (0, 100, 0),
-        ((100 * i, 0), (10, 600)),
-    )
-    pygame.draw.rect(
-        screen,
-        (0, 100, 0),
-        ((0, 100 * i), (610, 10)),
-    )
+def draw():
+    for i in range(7):
+        pygame.draw.rect(
+            screen,
+            (0, 100, 0),
+            ((100 * i, 0), (10, 600)),
+        )
+        pygame.draw.rect(
+            screen,
+            (0, 100, 0),
+            ((0, 100 * i), (610, 10)),
+        )
 
 
 # scores
@@ -81,7 +82,7 @@ def correct():
 
 
 # The game
-def main():
+def game():
     global create_block, hide_block, first_blocks, blocks, total_blocks, clicks, num, scores, gameover, count, array_x, array_y, i
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -148,12 +149,33 @@ def main():
         gameover = False
 
 
-# make pygame run
-while True:
-    pygame.time.Clock().tick(1.7)
-    main()
-    pygame.draw.rect(screen, (144, 238, 144), ((730, 300), (150, 100)))
-    score()
-    pygame.draw.rect(screen, (144, 238, 144), ((800, 200), (200, 100)))
-    highscore()
-    pygame.display.update()
+def main_game():
+    while True:
+        pygame.time.Clock().tick(1.7)
+        screen.fill([144, 238, 144])
+        draw()
+        game()
+        pygame.draw.rect(screen, (144, 238, 144), ((730, 300), (150, 100)))
+        score()
+        pygame.draw.rect(screen, (144, 238, 144), ((800, 200), (200, 100)))
+        highscore()
+        pygame.display.update()
+
+
+def main_menu():
+    while True:
+        screen.fill((0, 0, 0))
+        pygame.draw.rect(screen, (144, 238, 144), ((730, 300), (150, 100)))
+        click = False
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                x, y = event.pos
+                if 730 <= x <= 880 and 300 <= y <= 400:
+                    main_game()
+
+        pygame.display.update()
+
+
+main_menu()
