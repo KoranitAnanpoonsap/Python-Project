@@ -22,6 +22,7 @@ hide_block = False
 scores = 0
 high_score = 0
 font = pygame.font.SysFont("Arial", 32)
+font_2 = pygame.font.SysFont("Arial", 80)
 first_blocks = 1
 blocks = []
 total_blocks = 0
@@ -165,8 +166,8 @@ def main_game():
 def main_menu():
     while True:
         screen.fill([144, 238, 144])
-        title = font.render("MONKEY BRAIN", True, (0, 100, 0))
-        screen.blit(title, (400, 100))
+        title = font_2.render("MONKEY BRAIN", True, (0, 100, 0))
+        screen.blit(title, (250, 100))
         pygame.draw.rect(screen, (0, 100, 0), ((420, 250), (150, 100)))
         play = font.render("PLAY", True, (255, 255, 255))
         screen.blit(play, (463, 283))
