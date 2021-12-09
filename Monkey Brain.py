@@ -164,15 +164,18 @@ def main_game():
 
 def main_menu():
     while True:
-        screen.fill((0, 0, 0))
-        pygame.draw.rect(screen, (144, 238, 144), ((730, 300), (150, 100)))
-        click = False
+        screen.fill([144, 238, 144])
+        title = font.render("MONKEY BRAIN", True, (0, 100, 0))
+        screen.blit(title, (400, 100))
+        pygame.draw.rect(screen, (0, 100, 0), ((420, 250), (150, 100)))
+        play = font.render("PLAY", True, (255, 255, 255))
+        screen.blit(play, (463, 283))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = event.pos
-                if 730 <= x <= 880 and 300 <= y <= 400:
+                if 420 <= x <= 570 and 250 <= y <= 350:
                     main_game()
 
         pygame.display.update()
