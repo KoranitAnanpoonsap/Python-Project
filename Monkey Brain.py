@@ -62,6 +62,14 @@ def highscore():
     screen.blit(final, (700, 200))
 
 
+def highscore_restart():
+    global high_score
+    if scores > high_score:
+        high_score = scores
+    final = font_2.render("Highest Score: " + str(high_score), True, (0, 100, 0))
+    screen.blit(final, (280, 130))
+
+
 # reset the game
 def reset():
     global blocks, total_blocks, clicks, scores
@@ -82,6 +90,27 @@ def correct():
     count = 0
 
 
+def restart():
+    global create_block
+    while True:
+        reset()
+        create_block = True
+        screen.fill([144, 238, 144])
+        highscore_restart()
+        pygame.draw.rect(screen, (0, 100, 0), ((420, 250), (150, 100)))
+        play = font.render("RESTART", True, (255, 255, 255))
+        screen.blit(play, (435, 283))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                x, y = event.pos
+                if 420 <= x <= 570 and 250 <= y <= 350:
+                    main_game()
+
+        pygame.display.update()
+
+
 # The game
 def game():
     global create_block, hide_block, first_blocks, blocks, total_blocks, clicks, num, scores, gameover, count, array_x, array_y, i
@@ -100,7 +129,7 @@ def game():
                         if clicks == len(blocks):
                             correct()
                     else:
-                        gameover = True
+                        restart()
                 elif clicks < first_blocks:
                     x, y = event.pos
                     if (
@@ -109,7 +138,8 @@ def game():
                     ):
                         correct()
                     else:
-                        gameover = True
+                        restart()
+
     if hide_block:
         pygame.draw.rect(
             screen,
@@ -144,10 +174,6 @@ def game():
             count += 1
             create_block = False
             hide_block = True
-    if gameover:
-        reset()
-        create_block = True
-        gameover = False
 
 
 def main_game():
@@ -156,9 +182,7 @@ def main_game():
         screen.fill([144, 238, 144])
         draw()
         game()
-        pygame.draw.rect(screen, (144, 238, 144), ((730, 300), (150, 100)))
         score()
-        pygame.draw.rect(screen, (144, 238, 144), ((800, 200), (200, 100)))
         highscore()
         pygame.display.update()
 
