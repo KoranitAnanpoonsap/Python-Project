@@ -8,6 +8,14 @@ pygame.mixer.init()
 pygame.mixer.music.load("D:\\repositories\Python-Project\wii.mp3")
 pygame.mixer.music.set_volume(0.03)
 pygame.mixer.music.play(-1, 0.0)
+# soundeffect
+def soundeffect():
+    pygame.mixer.Channel(0).play(
+        pygame.mixer.Sound("D:\\repositories\Python-Project\hitsound.WAV"),
+        maxtime=100,
+    )
+    pygame.mixer.Channel(0).set_volume(0.03)
+
 
 #############################################################################
 width = 1000
@@ -106,6 +114,7 @@ def restart():
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = event.pos
                 if 420 <= x <= 570 and 250 <= y <= 350:
+                    soundeffect()
                     main_game()
 
         pygame.display.update()
@@ -125,6 +134,7 @@ def game():
                         blocks[clicks][0] <= x <= blocks[clicks][0] + 100
                         and blocks[clicks][1] <= y <= blocks[clicks][1] + 100
                     ):
+                        soundeffect()
                         clicks += 1
                         if clicks == len(blocks):
                             correct()
@@ -136,10 +146,10 @@ def game():
                         blocks[0][0] <= x <= blocks[0][0] + 100
                         and blocks[0][1] <= y <= blocks[0][1] + 100
                     ):
+                        soundeffect()
                         correct()
                     else:
                         restart()
-
     if hide_block:
         pygame.draw.rect(
             screen,
@@ -201,6 +211,7 @@ def main_menu():
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = event.pos
                 if 420 <= x <= 570 and 250 <= y <= 350:
+                    soundeffect()
                     main_game()
 
         pygame.display.update()
