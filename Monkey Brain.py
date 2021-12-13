@@ -1,15 +1,10 @@
 import pygame
 import sys
 import random
-
 from pygame.constants import K_ESCAPE, KEYDOWN
 
 pygame.init()  # inititalize pygame
-# background music
-pygame.mixer.init()
-pygame.mixer.music.load("D:\\repositories\Python-Project\wii.mp3")
-pygame.mixer.music.set_volume(0.03)
-pygame.mixer.music.play(-1)
+
 # soundeffect
 def soundeffect():
     pygame.mixer.Channel(0).play(
