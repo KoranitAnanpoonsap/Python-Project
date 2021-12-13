@@ -2,12 +2,14 @@ import pygame
 import sys
 import random
 
+from pygame.constants import K_ESCAPE, KEYDOWN
+
 pygame.init()  # inititalize pygame
 # background music
 pygame.mixer.init()
 pygame.mixer.music.load("D:\\repositories\Python-Project\wii.mp3")
 pygame.mixer.music.set_volume(0.03)
-pygame.mixer.music.play(-1, 0.0)
+pygame.mixer.music.play(-1)
 # soundeffect
 def soundeffect():
     pygame.mixer.Channel(0).play(
@@ -24,8 +26,8 @@ screen = pygame.display.set_mode([width, height])
 screen.fill([144, 238, 144])
 image = pygame.image.load("D:\\repositories\Python-Project\image\monk.jpg")
 create_block = True
-array_x = [0, 100, 200, 300, 400, 500]
-array_y = [0, 100, 200, 300, 400, 500]
+list_x = [0, 100, 200, 300, 400, 500]
+list_y = [0, 100, 200, 300, 400, 500]
 hide_block = False
 scores = 0
 high_score = 0
@@ -110,8 +112,13 @@ def restart():
         screen.blit(play, (435, 283))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                pygame.quit()
                 sys.exit()
-            elif event.type == pygame.MOUSEBUTTONDOWN:
+            elif event.type == KEYDOWN:
+                if event.key == K_ESCAPE:
+                    pygame.quit()
+                    sys.exit()
+            elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 x, y = event.pos
                 if 420 <= x <= 570 and 250 <= y <= 350:
                     soundeffect()
@@ -122,11 +129,16 @@ def restart():
 
 # The game
 def game():
-    global create_block, hide_block, first_blocks, blocks, total_blocks, clicks, num, scores, gameover, count, array_x, array_y, i
+    global create_block, hide_block, first_blocks, blocks, total_blocks, clicks, num, scores, gameover, count, list_x, list_y, i
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
+            pygame.quit()
             sys.exit()
-        elif event.type == pygame.MOUSEBUTTONDOWN:
+        elif event.type == KEYDOWN:
+            if event.key == K_ESCAPE:
+                pygame.quit()
+                sys.exit()
+        elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             if hide_block == False and count >= len(blocks):
                 if clicks < len(blocks) and len(blocks) != 1:
                     x, y = event.pos
@@ -164,20 +176,20 @@ def game():
         hide_block = False
     if create_block:
         if len(blocks) <= total_blocks:
-            block_x = random.choice([x for x in range(0, 600, 100) if x in array_x])
-            array_x.remove(block_x)
-            block_y = random.choice([y for y in range(0, 600, 100) if y in array_y])
-            array_y.remove(block_y)
+            block_x = random.choice([x for x in range(0, 600, 100) if x in list_x])
+            list_x.remove(block_x)
+            block_y = random.choice([y for y in range(0, 600, 100) if y in list_y])
+            list_y.remove(block_y)
             blocks.append([block_x, block_y])
             if i >= 1:
-                array_x = [0, 100, 200, 300, 400, 500]
-                array_x.remove(block_x)
-                array_y = [0, 100, 200, 300, 400, 500]
-                array_y.remove(block_y)
+                list_x = [0, 100, 200, 300, 400, 500]
+                list_x.remove(block_x)
+                list_y = [0, 100, 200, 300, 400, 500]
+                list_y.remove(block_y)
             i += 1
         else:
-            array_x = [0, 100, 200, 300, 400, 500]
-            array_y = [0, 100, 200, 300, 400, 500]
+            list_x = [0, 100, 200, 300, 400, 500]
+            list_y = [0, 100, 200, 300, 400, 500]
             i = 0
             monkey = pygame.transform.scale(image, (88, 88))
             screen.blit(monkey, (blocks[num][0] + 11, blocks[num][1] + 10))
@@ -207,8 +219,13 @@ def main_menu():
         screen.blit(play, (463, 283))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                pygame.quit()
                 sys.exit()
-            elif event.type == pygame.MOUSEBUTTONDOWN:
+            elif event.type == KEYDOWN:
+                if event.key == K_ESCAPE:
+                    pygame.quit()
+                    sys.exit()
+            elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 x, y = event.pos
                 if 420 <= x <= 570 and 250 <= y <= 350:
                     soundeffect()
