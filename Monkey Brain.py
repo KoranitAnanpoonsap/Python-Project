@@ -1,15 +1,13 @@
 import pygame
 import sys
 import random
-from pygame.constants import K_ESCAPE, KEYDOWN
 
 pygame.init()  # inititalize pygame
 
 # soundeffect
 def soundeffect():
     pygame.mixer.Channel(0).play(
-        pygame.mixer.Sound("D:\\repositories\Python-Project\hitsound.WAV"),
-        maxtime=100,
+        pygame.mixer.Sound("D:\\repositories\Python-Project\hitsound.WAV")
     )
     pygame.mixer.Channel(0).set_volume(0.03)
 
@@ -28,7 +26,6 @@ scores = 0
 high_score = 0
 font = pygame.font.SysFont("Arial", 32)
 font_2 = pygame.font.SysFont("Arial", 80)
-first_blocks = 1
 blocks = []
 total_blocks = 0
 clicks = 0
@@ -95,6 +92,7 @@ def correct():
     count = 0
 
 
+# restart
 def restart():
     global create_block
     while True:
@@ -107,11 +105,9 @@ def restart():
         screen.blit(play, (435, 283))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.quit()
                 sys.exit()
-            elif event.type == KEYDOWN:
-                if event.key == K_ESCAPE:
-                    pygame.quit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
                     sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 x, y = event.pos
@@ -122,20 +118,17 @@ def restart():
         pygame.display.update()
 
 
-# The game
 def game():
-    global create_block, hide_block, first_blocks, blocks, total_blocks, clicks, num, scores, gameover, count, list_x, list_y, i
+    global create_block, hide_block, blocks, total_blocks, clicks, num, scores, gameover, count, list_x, list_y, i
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            pygame.quit()
             sys.exit()
-        elif event.type == KEYDOWN:
-            if event.key == K_ESCAPE:
-                pygame.quit()
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
                 sys.exit()
         elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             if hide_block == False and count >= len(blocks):
-                if clicks < len(blocks) and len(blocks) != 1:
+                if clicks < len(blocks):
                     x, y = event.pos
                     if (
                         blocks[clicks][0] <= x <= blocks[clicks][0] + 100
@@ -145,16 +138,6 @@ def game():
                         clicks += 1
                         if clicks == len(blocks):
                             correct()
-                    else:
-                        restart()
-                elif clicks < first_blocks:
-                    x, y = event.pos
-                    if (
-                        blocks[0][0] <= x <= blocks[0][0] + 100
-                        and blocks[0][1] <= y <= blocks[0][1] + 100
-                    ):
-                        soundeffect()
-                        correct()
                     else:
                         restart()
     if hide_block:
@@ -214,11 +197,9 @@ def main_menu():
         screen.blit(play, (463, 283))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.quit()
                 sys.exit()
-            elif event.type == KEYDOWN:
-                if event.key == K_ESCAPE:
-                    pygame.quit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
                     sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 x, y = event.pos
