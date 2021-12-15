@@ -22,8 +22,8 @@ create_block = True
 list_x = [0, 100, 200, 300, 400, 500]
 list_y = [0, 100, 200, 300, 400, 500]
 hide_block = False
-scores = 0
-high_score = 0
+level = 0
+high_level = 0
 font = pygame.font.SysFont("Arial", 32)
 font_2 = pygame.font.SysFont("Arial", 80)
 blocks = []
@@ -50,41 +50,41 @@ def draw():
 
 
 # scores
-def score():
-    final = font.render("Score: " + str(scores), True, (255, 255, 255))
+def levels():
+    final = font.render("Level: " + str(level), True, (255, 255, 255))
     screen.blit(final, (730, 300))
 
 
 # highest scores
-def highscore():
-    global high_score
-    if scores > high_score:
-        high_score = scores
-    final = font.render("Highest Score: " + str(high_score), True, (255, 255, 255))
+def highlevel():
+    global high_level
+    if level > high_level:
+        high_level = level
+    final = font.render("Highest Level: " + str(high_level), True, (255, 255, 255))
     screen.blit(final, (700, 200))
 
 
-def highscore_restart():
-    global high_score
-    if scores > high_score:
-        high_score = scores
-    final = font_2.render("Highest Score: " + str(high_score), True, (0, 100, 0))
+def highlevel_restart():
+    global high_level
+    if level > high_level:
+        high_level = level
+    final = font_2.render("Highest Level: " + str(high_level), True, (0, 100, 0))
     screen.blit(final, (280, 130))
 
 
 # reset the game
 def reset():
-    global blocks, total_blocks, clicks, scores
+    global blocks, total_blocks, clicks, level
     blocks = []
     total_blocks = 0
     clicks = 0
-    scores = 0
+    level = 0
 
 
 # correct
 def correct():
-    global blocks, total_blocks, clicks, scores, create_block, count
-    scores += 1
+    global blocks, total_blocks, clicks, level, create_block, count
+    level += 1
     blocks = []
     total_blocks += 1
     create_block = True
@@ -99,7 +99,7 @@ def restart():
         reset()
         create_block = True
         screen.fill([144, 238, 144])
-        highscore_restart()
+        highlevel_restart()
         pygame.draw.rect(screen, (0, 100, 0), ((420, 250), (150, 100)))
         play = font.render("RESTART", True, (255, 255, 255))
         screen.blit(play, (435, 283))
@@ -183,8 +183,8 @@ def main_game():
         screen.fill([144, 238, 144])
         draw()
         game()
-        score()
-        highscore()
+        levels()
+        highlevel()
         pygame.display.update()
 
 
