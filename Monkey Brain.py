@@ -171,6 +171,7 @@ def game():
             i = 0
             monkey = pygame.transform.scale(image, (88, 88))
             screen.blit(monkey, (blocks[num][0] + 11, blocks[num][1] + 10))
+            soundeffect()
             count += 1
             create_block = False
             hide_block = True
@@ -178,7 +179,7 @@ def game():
 
 def main_game():
     while True:
-        pygame.time.Clock().tick(1.7)
+        pygame.time.Clock().tick(2)
         screen.fill([144, 238, 144])
         draw()
         game()
