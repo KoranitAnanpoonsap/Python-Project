@@ -33,6 +33,7 @@ num = 0
 count = 0
 i = 0
 gameover = False
+temp = False
 
 # the grid
 def draw():
@@ -96,7 +97,8 @@ def correct():
 
 # restart
 def restart():
-    global create_block
+    global create_block, temp
+    temp = False
     while True:
         reset()
         create_block = True
@@ -121,7 +123,8 @@ def restart():
 
 
 def game():
-    global create_block, hide_block, blocks, total_blocks, clicks, num, scores, gameover, count, list_x, list_y, i
+    global create_block, hide_block, blocks, total_blocks, clicks, num, gameover, count, list_x, list_y, i, temp
+    font = pygame.font.SysFont("Arial", 60)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
@@ -129,7 +132,7 @@ def game():
             if event.key == pygame.K_ESCAPE:
                 sys.exit()
         elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-            if hide_block == False and count == len(blocks):
+            if hide_block == False and count >= len(blocks):
                 if clicks < len(blocks):
                     x, y = event.pos
                     if (
@@ -138,10 +141,21 @@ def game():
                     ):
                         soundeffect()
                         clicks += 1
-                        if clicks == len(blocks):
-                            correct()
+                        temp = True
                     else:
                         restart()
+    if temp:
+        count_number = font.render((str(clicks)), True, (255, 255, 255))
+        screen.blit(
+            count_number,
+            (
+                blocks[clicks - 1][0] + 42,
+                blocks[clicks - 1][1] + 18,
+            ),
+        )
+        if clicks == len(blocks):
+            correct()
+            temp = False
     if hide_block:
         pygame.draw.rect(
             screen,
