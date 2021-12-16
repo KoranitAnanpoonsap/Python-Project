@@ -55,7 +55,7 @@ def levels():
     screen.blit(final, (730, 300))
 
 
-# highest scores
+# highest level passed
 def highlevel():
     global high_level
     if level > high_level:
