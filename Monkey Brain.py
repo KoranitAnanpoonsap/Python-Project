@@ -22,7 +22,7 @@ create_block = True
 list_x = [0, 100, 200, 300, 400, 500]
 list_y = [0, 100, 200, 300, 400, 500]
 hide_block = False
-level = 0
+level = 1
 high_level = 0
 font = pygame.font.SysFont("Arial", 32)
 font_2 = pygame.font.SysFont("Arial", 80)
@@ -49,7 +49,7 @@ def draw():
         )
 
 
-# scores
+# levels
 def levels():
     final = font.render("Level: " + str(level), True, (255, 255, 255))
     screen.blit(final, (730, 300))
@@ -59,17 +59,19 @@ def levels():
 def highlevel():
     global high_level
     if level > high_level:
-        high_level = level
-    final = font.render("Highest Level: " + str(high_level), True, (255, 255, 255))
-    screen.blit(final, (700, 200))
+        high_level = level - 1
+    final = font.render(
+        "Highest Level Passed: " + str(high_level), True, (255, 255, 255)
+    )
+    screen.blit(final, (670, 200))
 
 
 def highlevel_restart():
     global high_level
     if level > high_level:
         high_level = level
-    final = font_2.render("Highest Level: " + str(high_level), True, (0, 100, 0))
-    screen.blit(final, (280, 130))
+    final = font_2.render("Highest Level Passed: " + str(high_level), True, (0, 100, 0))
+    screen.blit(final, (170, 130))
 
 
 # reset the game
