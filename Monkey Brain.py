@@ -127,7 +127,7 @@ def game():
             if event.key == pygame.K_ESCAPE:
                 sys.exit()
         elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-            if hide_block == False and count >= len(blocks):
+            if hide_block == False and count == len(blocks):
                 if clicks < len(blocks):
                     x, y = event.pos
                     if (
@@ -146,7 +146,7 @@ def game():
             (144, 238, 144),
             ((blocks[num][0] + 11, blocks[num][1] + 10), (88, 88)),
         )
-        if num + 1 < len(blocks):
+        if num + 1 != len(blocks):
             num += 1
             create_block = True
         else:
