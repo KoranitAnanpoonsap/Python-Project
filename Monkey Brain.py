@@ -69,7 +69,7 @@ def highlevel():
 def highlevel_restart():
     global high_level
     if level > high_level:
-        high_level = level
+        high_level = level - 1
     final = font_2.render("Highest Level Passed: " + str(high_level), True, (0, 100, 0))
     screen.blit(final, (170, 130))
 
